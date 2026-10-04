@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# Next.js build output (generated, rebuilt by GitHub Actions)
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# secrets and local config
+.env
+.env.*
+
+# logs
+npm-debug.log*
+yarn-error.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
