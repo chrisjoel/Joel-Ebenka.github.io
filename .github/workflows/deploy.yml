@@ -1,32 +1,52 @@
-name: Deploy to GitHub Pages
+name: Build and deploy to GitHub Pages
+
 on:
   push:
-    branches: [main]
+    branches: [master]
+    paths-ignore:
+      - "**/*.md"
+  pull_request:
+    branches: [master]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
+# One deployment at a time per branch; a newer push waits for the running one to finish.
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
       - run: npm ci
+
+      # Type-checks and exports the static site into ./out
       - run: npm run build
+
+      # Pull requests only prove the site builds; they are never published.
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: out
+
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
