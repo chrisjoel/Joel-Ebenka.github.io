@@ -1,7 +1,7 @@
 # Joel Ebenka | DevOps and Cloud Engineer Portfolio
 # Joel-Ebenka.github.io
 
-Personal portfolio site, live at [https://Joel-Ebenka.github.io](https://Joel-Ebenka.github.io).
+Personal portfolio site, live at [https://chrisjoel.github.io](https://chrisjoel.github.io).
 
 It presents my experience, projects, tool stack, certifications, and contact details. It is a static site: it is built once into plain HTML, CSS, and JavaScript and hosted for free on GitHub Pages, and every push to `master` redeploys it automatically.
 
